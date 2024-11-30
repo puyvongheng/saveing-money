@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Financial Savings Plan</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container mt-5">
+    <h1 class="text-center text-primary mb-4">Financial Savings Plan</h1>
+    <form id="savings-form" class="p-4 border rounded shadow-sm">
+      <div class="mb-3">
+        <label for="goalAmount" class="form-label">Savings Goal Amount ($):</label>
+        <input type="number" id="goalAmount" class="form-control" placeholder="Enter your goal amount" required>
+      </div>
+      <div class="mb-3">
+        <label for="years" class="form-label">Years to Achieve Goal:</label>
+        <input type="number" id="years" class="form-control" placeholder="Enter the number of years" required>
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Calculate</button>
+    </form>
+
+    <div id="results" class="mt-5 p-4 border rounded shadow-sm d-none">
+      <h2 class="text-success">Results</h2>
+      <p id="goalMessage"></p>
+      <p id="monthlySavingsMessage"></p>
+      <hr>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('savings-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      // Get input values
+      const goalAmount = parseFloat(document.getElementById('goalAmount').value);
+      const years = parseFloat(document.getElementById('years').value);
+      const months = years * 12;
+
+      // Calculate monthly savings
+      const monthlySavings = calculateMonthlySavings(goalAmount, months);
+
+      // Display results
+      document.getElementById('results').classList.remove('d-none');
+      document.getElementById('goalMessage').textContent = `Goal: Save $${goalAmount.toFixed(2)} in ${years} years.`;
+      document.getElementById('monthlySavingsMessage').textContent = `You need to save $${monthlySavings.toFixed(2)} per month.`;
+    });
+
+    // Calculation logic
+    function calculateMonthlySavings(totalAmount, months) {
+      return totalAmount / months;
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
